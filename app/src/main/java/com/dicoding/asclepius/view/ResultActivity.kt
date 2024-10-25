@@ -3,6 +3,7 @@ package com.dicoding.asclepius.view
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.dicoding.asclepius.R
 import com.dicoding.asclepius.databinding.ActivityResultBinding
 
@@ -25,6 +26,8 @@ class ResultActivity : AppCompatActivity() {
 
         binding.resultImage.setImageURI(Uri.parse(imageUri))
         binding.resultText.text = prediction
+
+        Log.d("ResultActivity", "uri: $imageUri, prediction: $prediction")
 
     }
 
