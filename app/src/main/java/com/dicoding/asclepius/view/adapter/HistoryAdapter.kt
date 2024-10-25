@@ -1,29 +1,22 @@
 package com.dicoding.asclepius.view.adapter
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.asclepius.R
 import com.dicoding.asclepius.data.local.entity.ClasificationEntity
-import com.dicoding.asclepius.databinding.ItemListBinding
+import com.dicoding.asclepius.databinding.HistoryListBinding
 
 class HistoryAdapter: ListAdapter<ClasificationEntity, HistoryAdapter.ClasificationHolder>(DIFF_CALLBACK) {
 
     class ClasificationHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemListBinding.bind(itemView)
+        private val binding = HistoryListBinding.bind(itemView)
 
         fun bind(clasification: ClasificationEntity) {
 
@@ -36,22 +29,15 @@ class HistoryAdapter: ListAdapter<ClasificationEntity, HistoryAdapter.Clasificat
                 Log.e("HistoryAdapterError", "bind: ${e.message}")
             }
 
-//            Glide.with(itemView.context)
-//                .load(uri)
-//                .into(binding.ivImage)
-//            binding.ivImage.setImageURI(uri)
+            val isCancer = clasification.clasificationResult.split(" ")[0]
+            if (isCancer == "Cancer") {
+                binding.listItem.background = itemView.context.getDrawable(R.color.red)
+            } else {
+                binding.listItem.background = itemView.context.getDrawable(R.color.green)
+            }
             binding.tvResult.text = clasification.clasificationResult
             Log.d("HistoryAdapter", "bind: ${clasification.imageUriClassification}")
         }
-
-//            fun bind(clasification: ClasificationEntity) {
-//                val uri = Uri.parse(clasification.imageUriClassification)
-//                Glide.with(itemView.context)
-//                    .load(uri)
-//                    .into(binding.ivImage)
-//                binding.tvResult.text = clasification.clasificationResult
-//                Log.d("HistoryAdapter", "bind: ${clasification.imageUriClassification}")
-//            }
 
     }
 
@@ -68,7 +54,7 @@ class HistoryAdapter: ListAdapter<ClasificationEntity, HistoryAdapter.Clasificat
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClasificationHolder {
-        val binding = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
+        val binding = LayoutInflater.from(parent.context).inflate(R.layout.history_list, parent, false)
         return ClasificationHolder(binding)
     }
 
