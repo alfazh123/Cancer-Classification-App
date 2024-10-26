@@ -18,7 +18,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_KEY", "\"f787f4178a0841fdad7899e9d22d81a0\"")
+//        val apikey = properties.getValue("API_KEY")
+//
+//        buildConfigField("String", "API_KEY", "\"${apikey}\"")
     }
 
     buildTypes {
